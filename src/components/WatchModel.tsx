@@ -63,36 +63,66 @@ function WatchHands({ color, style }: { color: string; style: string }) {
       {/* Hour hand */}
       <group ref={hourRef}>
         <mesh position={[0, handShape.hourLen / 2, 0]} castShadow>
-          <boxGeometry args={[handShape.hourWidth, handShape.hourLen, 0.02]} />
-          <meshStandardMaterial color={color} metalness={0.9} roughness={0.1} />
+          <boxGeometry args={[handShape.hourWidth, handShape.hourLen, 0.025]} />
+          <meshStandardMaterial 
+            color={color} 
+            metalness={0.9} 
+            roughness={0.1}
+            emissive={color}
+            emissiveIntensity={0.2}
+          />
         </mesh>
       </group>
 
       {/* Minute hand */}
       <group ref={minuteRef}>
-        <mesh position={[0, handShape.minLen / 2, 0.01]} castShadow>
-          <boxGeometry args={[handShape.minWidth, handShape.minLen, 0.015]} />
-          <meshStandardMaterial color={color} metalness={0.9} roughness={0.1} />
+        <mesh position={[0, handShape.minLen / 2, 0.015]} castShadow>
+          <boxGeometry args={[handShape.minWidth, handShape.minLen, 0.02]} />
+          <meshStandardMaterial 
+            color={color} 
+            metalness={0.9} 
+            roughness={0.1}
+            emissive={color}
+            emissiveIntensity={0.2}
+          />
         </mesh>
       </group>
 
       {/* Second hand */}
       <group ref={secondRef}>
-        <mesh position={[0, handShape.secLen / 2, 0.02]} castShadow>
-          <boxGeometry args={[0.01, handShape.secLen, 0.01]} />
-          <meshStandardMaterial color="#ff3333" metalness={0.8} roughness={0.2} />
+        <mesh position={[0, handShape.secLen / 2, 0.03]} castShadow>
+          <boxGeometry args={[0.015, handShape.secLen, 0.015]} />
+          <meshStandardMaterial 
+            color="#ff3333" 
+            metalness={0.8} 
+            roughness={0.2}
+            emissive="#ff0000"
+            emissiveIntensity={0.3}
+          />
         </mesh>
         {/* Counterweight */}
-        <mesh position={[0, -0.12, 0.02]}>
-          <circleGeometry args={[0.025, 16]} />
-          <meshStandardMaterial color="#ff3333" metalness={0.8} roughness={0.2} />
+        <mesh position={[0, -0.12, 0.03]}>
+          <circleGeometry args={[0.03, 16]} />
+          <meshStandardMaterial 
+            color="#ff3333" 
+            metalness={0.8} 
+            roughness={0.2}
+            emissive="#ff0000"
+            emissiveIntensity={0.3}
+          />
         </mesh>
       </group>
 
       {/* Center pin */}
-      <mesh position={[0, 0, 0.03]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.04, 16]} />
-        <meshStandardMaterial color={color} metalness={1} roughness={0.05} />
+      <mesh position={[0, 0, 0.04]}>
+        <cylinderGeometry args={[0.035, 0.035, 0.05, 16]} />
+        <meshStandardMaterial 
+          color={color} 
+          metalness={1} 
+          roughness={0.05}
+          emissive={color}
+          emissiveIntensity={0.1}
+        />
       </mesh>
     </group>
   );
@@ -182,7 +212,7 @@ function Complication({
     <group position={position}>
       {/* Glow ring */}
       <mesh ref={glowRef}>
-        <ringGeometry args={[0.14, 0.18, 32]} />
+        <ringGeometry args={[0.16, 0.2, 32]} />
         <meshStandardMaterial
           color="#ffd700"
           emissive="#ffd700"
@@ -199,36 +229,63 @@ function Complication({
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
       >
-        <circleGeometry args={[0.14, 32]} />
+        <circleGeometry args={[0.16, 32]} />
         <meshStandardMaterial
-          color={type === 'date' ? '#111111' : type === 'moonphase' ? '#0a0a2a' : '#1a1a1a'}
+          color={type === 'date' ? '#222222' : type === 'moonphase' ? '#0a0a2a' : '#1a1a1a'}
           metalness={0.3}
           roughness={0.5}
+          emissive="#333333"
+          emissiveIntensity={0.1}
         />
       </mesh>
 
       {/* Complication content */}
       {type === 'date' && (
-        <mesh position={[0, 0, 0.02]}>
-          <planeGeometry args={[0.12, 0.08]} />
-          <meshStandardMaterial color="#ffffff" />
-        </mesh>
+        <group position={[0, 0, 0.02]}>
+          <mesh>
+            <planeGeometry args={[0.14, 0.1]} />
+            <meshStandardMaterial 
+              color="#ffffff"
+              emissive="#ffffff"
+              emissiveIntensity={0.3}
+            />
+          </mesh>
+          {/* Date number indicator */}
+          <mesh position={[0, 0, 0.005]}>
+            <planeGeometry args={[0.06, 0.06]} />
+            <meshStandardMaterial color="#000000" />
+          </mesh>
+        </group>
       )}
       {type === 'moonphase' && (
         <mesh position={[0, 0.02, 0.02]}>
-          <sphereGeometry args={[0.06, 16, 16]} />
-          <meshStandardMaterial color="#f5f5dc" emissive="#f5f5dc" emissiveIntensity={0.3} />
+          <sphereGeometry args={[0.07, 16, 16]} />
+          <meshStandardMaterial 
+            color="#f5f5dc" 
+            emissive="#f5f5dc" 
+            emissiveIntensity={0.4}
+          />
         </mesh>
       )}
       {type === 'chrono' && (
         <>
           <mesh position={[0, 0, 0.02]}>
-            <ringGeometry args={[0.08, 0.1, 32]} />
-            <meshStandardMaterial color="#ffffff" metalness={0.8} roughness={0.2} />
+            <ringGeometry args={[0.1, 0.12, 32]} />
+            <meshStandardMaterial 
+              color="#ffffff" 
+              metalness={0.8} 
+              roughness={0.2}
+              emissive="#ffffff"
+              emissiveIntensity={0.2}
+            />
           </mesh>
-          <mesh position={[0, 0, 0.025]} rotation={[0, 0, Math.PI / 4]}>
-            <boxGeometry args={[0.01, 0.1, 0.005]} />
-            <meshStandardMaterial color="#ff4444" />
+          <mesh position={[0, 0, 0.03]} rotation={[0, 0, Math.PI / 4]}>
+            <boxGeometry args={[0.015, 0.12, 0.008]} />
+            <meshStandardMaterial 
+              color="#ff4444"
+              emissive="#ff0000"
+              emissiveIntensity={0.4}
+            />
           </mesh>
         </>
       )}
@@ -419,6 +476,8 @@ export default function WatchModel({ config, isSwapping }: Props) {
           metalness={config.dialStyle === 'sunburst' ? 0.4 : 0.1}
           roughness={config.dialStyle === 'matte' ? 0.9 : config.dialStyle === 'carbon' ? 0.3 : 0.3}
           envMapIntensity={config.dialStyle === 'sunburst' ? 1.5 : 0.5}
+          emissive={config.dialColor}
+          emissiveIntensity={0.05}
         />
       </mesh>
 
@@ -480,8 +539,9 @@ export default function WatchModel({ config, isSwapping }: Props) {
           transmission={0.95}
           thickness={0.1}
           transparent
-          opacity={0.15}
-          envMapIntensity={1}
+          opacity={0.05}
+          envMapIntensity={0.5}
+          side={THREE.DoubleSide}
         />
       </mesh>
 
@@ -493,17 +553,17 @@ export default function WatchModel({ config, isSwapping }: Props) {
 
       {/* Complications */}
       <Complication
-        position={[0.45, 0, 0.14]}
+        position={[0.5, 0, 0.145]}
         type="date"
         visible={config.showDate}
       />
       <Complication
-        position={[0, 0.4, 0.14]}
+        position={[0, 0.45, 0.145]}
         type="chrono"
         visible={config.showChronograph}
       />
       <Complication
-        position={[0, -0.4, 0.14]}
+        position={[0, -0.45, 0.145]}
         type="moonphase"
         visible={config.showMoonphase}
       />
