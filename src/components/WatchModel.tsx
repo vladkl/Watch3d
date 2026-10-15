@@ -49,12 +49,12 @@ function WatchHands({ color, style }: { color: string; style: string }) {
   const handShape = useMemo(() => {
     switch (style) {
       case 'sword':
-        return { hourLen: 0.6, minLen: 0.85, secLen: 0.95, hourWidth: 0.06, minWidth: 0.04 };
+        return { hourLen: 0.6, minLen: 0.85, secLen: 0.95, hourWidth: 0.06, minWidth: 0.05 };
       case 'baton':
-        return { hourLen: 0.55, minLen: 0.8, secLen: 0.9, hourWidth: 0.03, minWidth: 0.02 };
+        return { hourLen: 0.55, minLen: 0.8, secLen: 0.9, hourWidth: 0.04, minWidth: 0.03 };
       case 'dauphine':
       default:
-        return { hourLen: 0.6, minLen: 0.85, secLen: 0.95, hourWidth: 0.05, minWidth: 0.035 };
+        return { hourLen: 0.6, minLen: 0.85, secLen: 0.95, hourWidth: 0.06, minWidth: 0.045 };
     }
   }, [style]);
 
@@ -153,13 +153,13 @@ function HourMarkers({ dialColor }: { dialColor: string }) {
           position={[x, y, 0]}
           rotation={[0, 0, -angle]}
         >
-          <boxGeometry args={[isMain ? 0.04 : 0.02, isMain ? 0.12 : 0.06, 0.01]} />
+          <boxGeometry args={[isMain ? 0.04 : 0.02, isMain ? 0.12 : 0.06, 0.015]} />
           <meshStandardMaterial
             color={isLightDial ? '#333333' : '#ffffff'}
             metalness={0.8}
             roughness={0.2}
             emissive={isLightDial ? '#000000' : '#ffffff'}
-            emissiveIntensity={0.1}
+            emissiveIntensity={0.15}
           />
         </mesh>
       ))}
@@ -172,8 +172,8 @@ function HourMarkers({ dialColor }: { dialColor: string }) {
         const y = Math.cos(angle) * radius;
         return (
           <mesh key={`min-${i}`} position={[x, y, 0]} rotation={[0, 0, -angle]}>
-            <boxGeometry args={[0.008, 0.03, 0.005]} />
-            <meshStandardMaterial color="#888888" metalness={0.5} roughness={0.3} />
+            <boxGeometry args={[0.01, 0.035, 0.008]} />
+            <meshStandardMaterial color="#aaaaaa" metalness={0.5} roughness={0.3} />
           </mesh>
         );
       })}
@@ -236,6 +236,7 @@ function Complication({
           roughness={0.5}
           emissive="#333333"
           emissiveIntensity={0.1}
+          side={THREE.DoubleSide}
         />
       </mesh>
 
@@ -478,6 +479,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
           envMapIntensity={config.dialStyle === 'sunburst' ? 1.5 : 0.5}
           emissive={config.dialColor}
           emissiveIntensity={0.05}
+          side={THREE.DoubleSide}
         />
       </mesh>
 
@@ -491,6 +493,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
             roughness={0.15}
             transparent
             opacity={0.3}
+            side={THREE.DoubleSide}
           />
         </mesh>
       )}
@@ -507,6 +510,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
                 roughness={0.2}
                 transparent
                 opacity={0.4}
+                side={THREE.DoubleSide}
               />
             </mesh>
           ))}
@@ -523,6 +527,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
                 color={i % 2 === 0 ? '#1a1a1a' : '#222222'}
                 metalness={0.3}
                 roughness={0.4}
+                side={THREE.DoubleSide}
               />
             </mesh>
           ))}
