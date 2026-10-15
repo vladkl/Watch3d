@@ -59,69 +59,70 @@ function WatchHands({ color, style }: { color: string; style: string }) {
   }, [style]);
 
   return (
-    <group position={[0, 0, 0.16]}>
+    <group position={[0, 0, 0.2]}>
       {/* Hour hand */}
       <group ref={hourRef}>
         <mesh position={[0, handShape.hourLen / 2, 0]} castShadow>
-          <boxGeometry args={[handShape.hourWidth, handShape.hourLen, 0.025]} />
+          <boxGeometry args={[handShape.hourWidth, handShape.hourLen, 0.03]} />
           <meshStandardMaterial 
             color={color} 
             metalness={0.9} 
             roughness={0.1}
             emissive={color}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.3}
           />
         </mesh>
       </group>
 
       {/* Minute hand */}
       <group ref={minuteRef}>
-        <mesh position={[0, handShape.minLen / 2, 0.015]} castShadow>
-          <boxGeometry args={[handShape.minWidth, handShape.minLen, 0.02]} />
+        <mesh position={[0, handShape.minLen / 2, 0.02]} castShadow>
+          <boxGeometry args={[handShape.minWidth, handShape.minLen, 0.03]} />
           <meshStandardMaterial 
             color={color} 
             metalness={0.9} 
             roughness={0.1}
             emissive={color}
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.3}
           />
         </mesh>
       </group>
 
       {/* Second hand */}
       <group ref={secondRef}>
-        <mesh position={[0, handShape.secLen / 2, 0.03]} castShadow>
-          <boxGeometry args={[0.015, handShape.secLen, 0.015]} />
+        <mesh position={[0, handShape.secLen / 2, 0.04]} castShadow>
+          <boxGeometry args={[0.02, handShape.secLen, 0.02]} />
           <meshStandardMaterial 
             color="#ff3333" 
             metalness={0.8} 
             roughness={0.2}
             emissive="#ff0000"
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.5}
           />
         </mesh>
         {/* Counterweight */}
-        <mesh position={[0, -0.12, 0.03]}>
-          <circleGeometry args={[0.03, 16]} />
+        <mesh position={[0, -0.12, 0.04]}>
+          <circleGeometry args={[0.035, 16]} />
           <meshStandardMaterial 
             color="#ff3333" 
             metalness={0.8} 
             roughness={0.2}
             emissive="#ff0000"
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.5}
+            side={THREE.DoubleSide}
           />
         </mesh>
       </group>
 
       {/* Center pin */}
-      <mesh position={[0, 0, 0.04]}>
-        <cylinderGeometry args={[0.035, 0.035, 0.05, 16]} />
+      <mesh position={[0, 0, 0.05]}>
+        <cylinderGeometry args={[0.04, 0.04, 0.06, 16]} />
         <meshStandardMaterial 
           color={color} 
           metalness={1} 
           roughness={0.05}
           emissive={color}
-          emissiveIntensity={0.1}
+          emissiveIntensity={0.2}
         />
       </mesh>
     </group>
@@ -146,7 +147,7 @@ function HourMarkers({ dialColor }: { dialColor: string }) {
   const isLightDial = dialColor === '#ffffff' || dialColor === '#f5f5f5' || dialColor === '#f5e6c8';
 
   return (
-    <group position={[0, 0, 0.14]}>
+    <group position={[0, 0, 0.18]}>
       {markers.map(({ x, y, isMain, angle, index }) => (
         <mesh
           key={index}
@@ -459,7 +460,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
       </mesh>
 
       {/* Bezel top ring */}
-      <mesh position={[0, 0, 0.17]} castShadow>
+      <mesh position={[0, 0, 0.21]} castShadow>
         <torusGeometry args={[1.0, 0.04, 16, 64]} />
         <meshStandardMaterial
           color={caseProps.color}
@@ -470,7 +471,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
       </mesh>
 
       {/* Watch dial (face) */}
-      <mesh position={[0, 0, 0.13]} receiveShadow>
+      <mesh position={[0, 0, 0.175]} receiveShadow>
         <circleGeometry args={[0.95, 64]} />
         <meshStandardMaterial
           color={config.dialColor}
@@ -485,7 +486,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
 
       {/* Sunburst pattern overlay */}
       {config.dialStyle === 'sunburst' && (
-        <mesh position={[0, 0, 0.135]}>
+        <mesh position={[0, 0, 0.176]}>
           <circleGeometry args={[0.94, 64]} />
           <meshStandardMaterial
             color={config.dialColor}
@@ -500,7 +501,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
 
       {/* Guilloche pattern */}
       {config.dialStyle === 'guilloche' && (
-        <group position={[0, 0, 0.135]}>
+        <group position={[0, 0, 0.176]}>
           {Array.from({ length: 8 }, (_, i) => (
             <mesh key={i} rotation={[0, 0, (i / 8) * Math.PI * 2]}>
               <ringGeometry args={[0.2 + i * 0.09, 0.22 + i * 0.09, 64]} />
@@ -519,7 +520,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
 
       {/* Carbon fiber pattern */}
       {config.dialStyle === 'carbon' && (
-        <group position={[0, 0, 0.135]}>
+        <group position={[0, 0, 0.176]}>
           {Array.from({ length: 20 }, (_, i) => (
             <mesh key={i} position={[(i % 5 - 2) * 0.2, (Math.floor(i / 5) - 2) * 0.2, 0]}>
               <planeGeometry args={[0.18, 0.18]} />
@@ -535,7 +536,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
       )}
 
       {/* Crystal / Glass */}
-      <mesh position={[0, 0, 0.18]}>
+      <mesh position={[0, 0, 0.21]}>
         <circleGeometry args={[0.98, 64]} />
         <meshPhysicalMaterial
           color="#ffffff"
@@ -558,17 +559,17 @@ export default function WatchModel({ config, isSwapping }: Props) {
 
       {/* Complications */}
       <Complication
-        position={[0.5, 0, 0.145]}
+        position={[0.5, 0, 0.185]}
         type="date"
         visible={config.showDate}
       />
       <Complication
-        position={[0, 0.45, 0.145]}
+        position={[0, 0.45, 0.185]}
         type="chrono"
         visible={config.showChronograph}
       />
       <Complication
-        position={[0, -0.45, 0.145]}
+        position={[0, -0.45, 0.185]}
         type="moonphase"
         visible={config.showMoonphase}
       />
