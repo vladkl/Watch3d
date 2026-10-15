@@ -360,7 +360,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
   return (
     <group ref={groupRef} rotation={[0.3, 0, 0]}>
       {/* Watch Case - main body */}
-      <mesh castShadow receiveShadow>
+      <mesh castShadow receiveShadow rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[1.05, 1.05, 0.35, 64]} />
         <meshStandardMaterial
           color={caseProps.color}
@@ -549,6 +549,7 @@ export default function WatchModel({ config, isSwapping }: Props) {
           color={caseProps.color}
           metalness={caseProps.metalness}
           roughness={caseProps.roughness}
+          side={THREE.DoubleSide}
         />
       </mesh>
     </group>
