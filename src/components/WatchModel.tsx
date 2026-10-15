@@ -260,12 +260,12 @@ function WatchStrap({
     const bounce = Math.sin(swapProgress.current * Math.PI) * 0.3;
 
     if (topRef.current) {
-      topRef.current.position.y = bounce * 0.1;
-      topRef.current.rotation.x = bounce * 0.05;
+      topRef.current.position.y = bounce * 0.15;
+      topRef.current.rotation.x = bounce * 0.08;
     }
     if (bottomRef.current) {
-      bottomRef.current.position.y = -bounce * 0.1;
-      bottomRef.current.rotation.x = -bounce * 0.05;
+      bottomRef.current.position.y = -bounce * 0.15;
+      bottomRef.current.rotation.x = -bounce * 0.08;
     }
   });
 
@@ -287,15 +287,15 @@ function WatchStrap({
 
   return (
     <group>
-      {/* Top strap - starts from lugs at y=1.05 */}
+      {/* Top strap - starts from lugs at y=1.2 */}
       <group ref={topRef}>
         {/* Spring bar (connecting piece) */}
-        <mesh position={[0, 1.08, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <mesh position={[0, 1.2, 0]} rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.02, 0.02, 0.5, 8]} />
           <meshStandardMaterial color="#888888" metalness={0.9} roughness={0.2} />
         </mesh>
         {/* Main strap segment 1 - attached to lugs */}
-        <mesh position={[0, 1.45, -0.02]} castShadow>
+        <mesh position={[0, 1.575, -0.02]} castShadow>
           <boxGeometry args={[0.52, 0.75, 0.1]} />
           <meshStandardMaterial
             color={color}
@@ -304,8 +304,8 @@ function WatchStrap({
           />
         </mesh>
         {/* Main strap segment 2 - curves back */}
-        <mesh position={[0, 1.95, -0.15]} rotation={[0.25, 0, 0]} castShadow>
-          <boxGeometry args={[0.5, 0.55, 0.09]} />
+        <mesh position={[0, 2.05, -0.15]} rotation={[0.25, 0, 0]} castShadow>
+          <boxGeometry args={[0.5, 0.45, 0.09]} />
           <meshStandardMaterial
             color={color}
             roughness={strapProps.roughness}
@@ -315,7 +315,7 @@ function WatchStrap({
         {/* Strap texture lines for leather */}
         {material === 'leather' && (
           <>
-            {[1.2, 1.4, 1.6].map((y, i) => (
+            {[1.35, 1.55, 1.75].map((y, i) => (
               <mesh key={i} position={[0, y, 0.04]}>
                 <boxGeometry args={[0.48, 0.005, 0.01]} />
                 <meshStandardMaterial color="#000000" roughness={0.9} transparent opacity={0.3} />
@@ -324,21 +324,21 @@ function WatchStrap({
           </>
         )}
         {/* Buckle */}
-        <mesh position={[0, 2.15, -0.28]} rotation={[0.25, 0, 0]}>
+        <mesh position={[0, 2.22, -0.28]} rotation={[0.25, 0, 0]}>
           <boxGeometry args={[0.35, 0.12, 0.04]} />
           <meshStandardMaterial color="#c0c0c0" metalness={0.95} roughness={0.1} />
         </mesh>
       </group>
 
-      {/* Bottom strap - starts from lugs at y=-1.05 */}
+      {/* Bottom strap - starts from lugs at y=-1.2 */}
       <group ref={bottomRef}>
         {/* Spring bar (connecting piece) */}
-        <mesh position={[0, -1.08, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <mesh position={[0, -1.2, 0]} rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.02, 0.02, 0.5, 8]} />
           <meshStandardMaterial color="#888888" metalness={0.9} roughness={0.2} />
         </mesh>
         {/* Main strap segment 1 - attached to lugs */}
-        <mesh position={[0, -1.45, -0.02]} castShadow>
+        <mesh position={[0, -1.575, -0.02]} castShadow>
           <boxGeometry args={[0.52, 0.75, 0.1]} />
           <meshStandardMaterial
             color={color}
@@ -347,8 +347,8 @@ function WatchStrap({
           />
         </mesh>
         {/* Main strap segment 2 - curves back */}
-        <mesh position={[0, -1.95, -0.15]} rotation={[-0.25, 0, 0]} castShadow>
-          <boxGeometry args={[0.5, 0.55, 0.09]} />
+        <mesh position={[0, -2.05, -0.15]} rotation={[-0.25, 0, 0]} castShadow>
+          <boxGeometry args={[0.5, 0.45, 0.09]} />
           <meshStandardMaterial
             color={color}
             roughness={strapProps.roughness}
@@ -358,7 +358,7 @@ function WatchStrap({
         {/* Strap holes for leather */}
         {material === 'leather' && (
           <>
-            {[-1.25, -1.4, -1.55, -1.7].map((y, i) => (
+            {[-1.35, -1.5, -1.65, -1.8].map((y, i) => (
               <mesh key={i} position={[0, y, 0.06]} rotation={[Math.PI / 2, 0, 0]}>
                 <cylinderGeometry args={[0.015, 0.015, 0.12, 8]} />
                 <meshStandardMaterial color="#000000" />
