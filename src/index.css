@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0a0f;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Canvas styling */
+canvas {
+  touch-action: none;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a {
+  transition: all 0.2s ease;
+}
+
+/* Glow effect for active elements */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.glow-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Loading animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
